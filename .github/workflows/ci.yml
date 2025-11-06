@@ -2,40 +2,21 @@ name: CI
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, dev ]
+    branches: [ main ]
 
 jobs:
-  server-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16, 18]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        working-directory: ./server
-        run: npm install
-      - name: Run tests
-        working-directory: ./server
-        run: npm test
-
   client-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install client deps
-        working-directory: ./client
-        run: npm install
       - name: Run client tests
-        working-directory: ./client
-        run: npm test
+        run: npm test --prefix client
+
+  server-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run server tests
+        run: npm test --prefix server
