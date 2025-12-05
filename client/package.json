@@ -12,6 +12,10 @@
     "web-vitals": "^5.1.0"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    
+  "test": "echo \"No tests specified\" && exit 0"
   }
 }
+
+
